@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ctrl+AI: Vibe Coding & the Future of K-12 CS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font and base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+
+        /* Background grid pattern */
+        .bg-grid-gray-700\/\[0\.2\] {
+            background-image: linear-gradient(to right, rgba(107, 114, 128, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(107, 114, 128, 0.1) 1px, transparent 1px);
+            background-size: 2rem 2rem;
+        }
+        
+        /* Fade-in animation for slides */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        /* Hide all slides by default */
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        
+        /* Show the active slide */
+        .slide.active {
+            display: flex;
+        }
+        
+        /* Loading spinner animation */
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white font-sans w-full h-screen flex flex-col justify-center items-center p-4 relative overflow-hidden">
+    
+    <!-- Background decorations -->
+    <div class="absolute inset-0 bg-grid-gray-700/[0.2] z-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/80 to-transparent z-0"></div>
+    
+    <!-- Main presentation container -->
+    <div id="presentation-container" class="w-full h-full max-w-5xl max-h-[600px] bg-gray-800 rounded-2xl shadow-2xl shadow-cyan-500/10 border border-gray-700 flex flex-col justify-center items-center p-8 md:p-16 relative z-10">
+
+        <!-- Slide 1: Title -->
+        <div class="slide active text-center">
+            <div class="flex items-center justify-center bg-cyan-500/10 p-4 rounded-full mb-6 border border-cyan-500/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path></svg>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-br from-white to-gray-400">Ctrl+AI</h1>
+            <h2 class="text-2xl md:text-3xl text-gray-300 mt-2">Vibe Coding & the Future of K-12 CS</h2>
+            <p class="mt-8 text-lg text-gray-400">Michael Fricano II | K-6 Design and Technology Teacher & EdTech Enthusiast</p>
+        </div>
+
+        <!-- Slide 2: Core Question -->
+        <div class="slide text-center">
+            <p class="text-xl md:text-2xl text-cyan-400 mb-4">"Vibe coding" allows users to create with AI using natural language.</p>
+            <h1 class="text-3xl md:text-5xl font-bold text-white leading-tight">What does this mean for K-12 Computer Science?</h1>
+            <div class="mt-8 flex justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-500"><path d="M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69a3.6 3.6 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.4.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.72c0 .27.16.58.67.5A10 10 0 0 0 22 12 10 10 0 0 0 12 2Z"></path><path d="M10 12.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path><path d="M15 12.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path><path d="M12.5 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"></path><path d="M12.5 15a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"></path><path d="M10 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"></path><path d="M15 15a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0 5Z"></path></svg>
+            </div>
+        </div>
+        
+        <!-- Slide 3: Agenda -->
+        <div class="slide text-left">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-8 text-center">Today's Agenda</h1>
+            <ul class="space-y-4 text-xl text-gray-300">
+                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg> What is "Vibe Coding"?</li>
+                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><path d="M14 2v6h6"></path><path d="M10 16s-1.5-2-3-2-3 2-3 2"></path><path d="M10 13s-1.5-2-3-2-3 2-3 2"></path></svg> AI in Action: Live Demos</li>
+                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect></svg> Practical & Ethical Classroom Use</li>
+                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4"><path d="M12 2a10 10 0 0 0-10 10c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.1.39-1.99 1.03-2.69a3.6 3.6 0 0 1 .1-2.64s.84-.27 2.75 1.02a9.58 9.58 0 0 1 5 0c1.91-1.3 2.75-1.02 2.75-1.02.55 1.37.2 2.4.1 2.64.64.7 1.03 1.6 1.03 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.72c0 .27.16.58.67.5A10 10 0 0 0 22 12 10 10 0 0 0 12 2Z"></path><path d="M10 12.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path><path d="M15 12.5a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path><path d="M12.5 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"></path><path d="M12.5 15a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5Z"></path><path d="M10 10a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z"></path><path d="M15 15a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0 5Z"></path></svg> Augmenting, Not Replacing, Critical Thinking</li>
+                <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg> Q&A and Discussion</li>
+            </ul>
+        </div>
+
+        <!-- Slide 4: What is Vibe Coding? -->
+        <div class="slide text-center">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-6">What is "Vibe Coding"?</h1>
+            <p class="text-xl text-gray-300 mb-8">Instructing AI with natural language to generate, refine, and debug code.</p>
+            <div class="grid md:grid-cols-2 gap-8 items-center text-left">
+                <div class="bg-gray-700/50 p-6 rounded-lg border border-gray-600">
+                    <h3 class="text-lg font-semibold text-white mb-2">The Analogy</h3>
+                    <p class="text-gray-400">You are the <span class="text-cyan-400 font-bold">Creative Director</span>.</p>
+                    <p class="text-gray-400">The AI is the <span class="text-cyan-400 font-bold">Apprentice Coder</span>.</p>
+                </div>
+                <div class="bg-gray-700/50 p-6 rounded-lg border border-gray-600">
+                    <h3 class="text-lg font-semibold text-white mb-2">The Focus</h3>
+                    <p class="text-gray-400">Focus shifts from <span class="line-through">syntax</span> to <span class="text-cyan-400 font-bold">intent</span>.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Pedagogical Shift -->
+        <div class="slide text-center">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-6">From Syntax Memorizers to System Thinkers</h1>
+            <p class="text-xl text-gray-300 mb-8">We are teaching students how to be architects, not just bricklayers.</p>
+            <div class="flex flex-col md:flex-row justify-around gap-6">
+                <div class="flex-1 bg-red-500/10 p-6 rounded-lg border border-red-500/20 text-center">
+                    <h3 class="text-2xl font-bold text-red-300 mb-2">Old Focus</h3>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>Memorizing syntax</li>
+                        <li>Line-by-line logic</li>
+                    </ul>
+                </div>
+                <div class="flex items-center justify-center text-cyan-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden md:block"><path d="m9 18 6-6-6-6"></path></svg>
+                </div>
+                <div class="flex-1 bg-green-500/10 p-6 rounded-lg border border-green-500/20 text-center">
+                    <h3 class="text-2xl font-bold text-green-300 mb-2">New Focus</h3>
+                    <ul class="text-gray-300 space-y-2">
+                        <li>Problem Decomposition</li>
+                        <li>Systems Thinking</li>
+                        <li>Critical Evaluation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Interactive Poll -->
+        <div class="slide text-center">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-4">Let's Hear From You</h1>
+            <p class="text-xl text-gray-300 mb-8">What is your biggest concern regarding students using AI to write code?</p>
+            <div class="bg-white p-4 rounded-lg">
+                <img src="https://placehold.co/200x200/ffffff/000000?text=QR+Code" alt="QR Code for Poll" />
+            </div>
+            <p class="mt-4 text-gray-400">Scan the QR code or go to menti.com and enter code XXXXXX</p>
+        </div>
+
+        <!-- Slide 7: Disclaimer -->
+        <div class="slide text-center">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-6">A Quick Disclaimer</h1>
+            <div class="bg-gray-700/50 p-8 rounded-lg border border-gray-600">
+                <p class="text-xl text-gray-300 leading-relaxed">As we demo these tools, let's wear two hats: one of a <span class="text-cyan-300">student creator</span>, and one of a <span class="text-cyan-300">teacher assessor</span>.</p>
+                <p class="mt-4 text-lg text-gray-400">The goal is to understand the <span class="font-bold">potential</span>, not master a specific tool.</p>
+            </div>
+        </div>
+        
+        <!-- Slide 8: Gemini Demo 1 -->
+        <div class="slide text-left">
+            <div class="w-full h-full flex flex-col">
+                <h1 class="text-4xl font-bold text-cyan-400 mb-2">Demo 1: ✨ Live Vibe Coding</h1>
+                <p class="text-lg text-gray-400 mb-4">Let's generate a simple guessing game with Gemini.</p>
+                <div class="flex-grow flex flex-col gap-4">
+                    <textarea id="demo1-prompt" class="w-full p-2 bg-gray-900 rounded-lg font-mono text-sm text-gray-300 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none" rows="3" placeholder="Enter your 'vibe' prompt here...">The computer thinks of a number from 1-20. It asks for a guess and tells me if I'm too high, too low, or correct.</textarea>
+                    <button id="demo1-button" class="w-full flex justify-center items-center gap-2 px-4 py-2 bg-cyan-600 text-white font-bold rounded-lg hover:bg-cyan-500 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.3 0 .5.1.8.2l4.9 2.5c.3.2.5.4.5.8v12c0 .4-.2.6-.5.8l-4.9 2.5c-.3.1-.5.2-.8.2s-.5-.1-.8-.2L6.3 19.3c-.3-.2-.5-.4-.5-.8v-12c0-.4.2-.6.5-.8l4.9-2.5c.3-.1.5-.2.8-.2z"></path><path d="M12 3v18"></path><path d="m16.9 6.2-10 5.2"></path><path d="m16.9 17.8-10-5.2"></path></svg>
+                        <span class="button-text">Generate Code with Gemini</span>
+                    </button>
+                    <div class="flex-grow w-full bg-gray-900/80 rounded-lg border border-gray-700 p-4 overflow-auto">
+                        <pre class="whitespace-pre-wrap text-sm"><code id="demo1-output" class="language-python"><span class="text-gray-500">Generated code will appear here.</span></code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: Demo 2 -->
+        <div class="slide text-left">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-4">Demo 2: AI for Problem-Solving</h1>
+            <p class="text-lg text-gray-400 mb-6">Using AI as a learning assistant.</p>
+            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                <div class="bg-gray-900 p-4 rounded-lg font-mono text-sm text-gray-300 border border-gray-700">
+                    <p><span class="text-cyan-400">Debugging Prompt:</span></p>
+                    <p class="mt-2">"Find the bug in this code."</p>
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg font-mono text-sm text-gray-300 border border-gray-700">
+                    <p><span class="text-cyan-400">Explanation Prompt:</span></p>
+                    <p class="mt-2">"Explain this function to me like I'm a 10th grader."</p>
+                </div>
+            </div>
+            <div class="w-full h-48 bg-gray-900/50 rounded-lg border border-dashed border-gray-600 flex justify-center items-center">
+                <p class="text-gray-500">[ Live Demo / Screenshot Placeholder ]</p>
+            </div>
+            <p class="mt-6 text-center text-xl text-white">Takeaway: AI can act as a patient, 24/7 tutor to help students <span class="text-cyan-400">overcome hurdles</span>.</p>
+        </div>
+
+        <!-- Slide 10: Integrity Checkpoint -->
+        <div class="slide text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-6"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect></svg>
+            <h1 class="text-4xl font-bold text-white mb-4">How do we assess learning?</h1>
+            <p class="text-2xl text-gray-300">How can we maintain academic integrity when the code isn't 100% student-written?</p>
+        </div>
+
+        <!-- Slide 11: Augmenting Not Replacing -->
+        <div class="slide text-center">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-6">The Teacher's Evolving Role</h1>
+            <p class="text-xl text-gray-300 mb-8">The teacher becomes a...</p>
+            <div class="flex flex-col md:flex-row justify-around gap-6 text-white">
+                <div class="flex-1 text-center">
+                    <div class="bg-gray-700/50 w-24 h-24 rounded-full mx-auto flex items-center justify-center border-2 border-cyan-500/50"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></div>
+                    <h3 class="text-2xl font-bold mt-4">Guide</h3>
+                </div>
+                <div class="flex-1 text-center">
+                    <div class="bg-gray-700/50 w-24 h-24 rounded-full mx-auto flex items-center justify-center border-2 border-cyan-500/50"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></div>
+                    <h3 class="text-2xl font-bold mt-4">Project Manager</h3>
+                </div>
+                <div class="flex-1 text-center">
+                    <div class="bg-gray-700/50 w-24 h-24 rounded-full mx-auto flex items-center justify-center border-2 border-cyan-500/50"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect></svg></div>
+                    <h3 class="text-2xl font-bold mt-4">Ethical Compass</h3>
+                </div>
+            </div>
+            <p class="mt-8 text-xl text-gray-300">Focus assessment on the <span class="text-cyan-400 font-bold">process</span>, not just the final product.</p>
+        </div>
+
+        <!-- Slide 12: Academic Integrity Strategies -->
+        <div class="slide text-left">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-8 text-center">Strategies for Academic Integrity</h1>
+            <ul class="space-y-4 text-xl text-gray-300">
+                <li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 mr-4 mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span><span class="font-bold text-white">"Show Your Work":</span> Students submit their AI prompt history.</span></li>
+                <li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 mr-4 mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span><span class="font-bold text-white">Code Reviews:</span> Students must explain and defend the AI's code.</span></li>
+                <li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 mr-4 mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span><span class="font-bold text-white">Hybrid Assessments:</span> Combine AI-assisted tasks with non-AI tasks.</span></li>
+                <li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-400 mr-4 mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span><span class="font-bold text-white">Classroom AI Policy:</span> Define acceptable use <span class="italic">with</span> students.</span></li>
+            </ul>
+        </div>
+
+        <!-- Slide 13: Gemini Group Discussion -->
+        <div class="slide text-center">
+             <div class="w-full h-full flex flex-col text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <h1 class="text-4xl font-bold text-white mb-2">✨ Live Policy Synthesis</h1>
+                <p class="text-lg text-gray-300 mb-4">Enter ideas from the discussion below.</p>
+                <div class="flex-grow flex flex-col gap-4">
+                    <textarea id="demo2-ideas" class="w-full flex-grow p-3 bg-gray-900 rounded-lg text-base text-gray-300 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none" placeholder="e.g., 'Cite the AI', 'Don't copy paste', 'Use it for ideas not answers'..."></textarea>
+                    <button id="demo2-button" class="w-full flex justify-center items-center gap-2 px-4 py-2 bg-cyan-600 text-white font-bold rounded-lg hover:bg-cyan-500 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c.3 0 .5.1.8.2l4.9 2.5c.3.2.5.4.5.8v12c0 .4-.2.6-.5.8l-4.9 2.5c-.3.1-.5.2-.8.2s-.5-.1-.8-.2L6.3 19.3c-.3-.2-.5-.4-.5-.8v-12c0-.4.2-.6.5-.8l4.9-2.5c.3-.1.5-.2.8-.2z"></path><path d="M12 3v18"></path><path d="m16.9 6.2-10 5.2"></path><path d="m16.9 17.8-10-5.2"></path></svg>
+                        <span class="button-text">Synthesize with Gemini</span>
+                    </button>
+                    <div class="w-full bg-cyan-900/30 rounded-lg border border-cyan-500/30 p-4 text-left">
+                        <h3 class="font-bold text-cyan-400 mb-2">Synthesized Policy Rule:</h3>
+                        <p id="demo2-output" class="text-white text-base"><span class="text-gray-500">Synthesized rule will appear here.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Key Takeaways -->
+        <div class="slide text-left">
+            <h1 class="text-4xl font-bold text-cyan-400 mb-8 text-center">Key Takeaways</h1>
+            <ul class="space-y-4 text-xl text-gray-300">
+                <li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4 mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>Vibe coding shifts focus from syntax to <span class="font-bold text-white">systems thinking</span>.</span></li>
+                <li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4 mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>AI is a powerful tool for <span class="font-bold text-white">creation and problem-solving</span>.</span></li>
+                <li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4 mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>We can maintain integrity with <span class="font-bold text-white">new assessment strategies</span>.</span></li>
+                <li class="flex items-start"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mr-4 mt-1 flex-shrink-0"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg> <span>The goal is to <span class="font-bold text-white">augment, not replace</span>, critical thinking.</span></li>
+            </ul>
+        </div>
+
+        <!-- Slide 15: Call To Action -->
+        <div class="slide text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-6"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            <h1 class="text-4xl font-bold text-white mb-4">Your Call to <span class="bg-clip-text text-transparent bg-gradient-to-br from-white to-gray-400">Ctrl+AI</span></h1>
+            <p class="text-2xl text-gray-300 leading-relaxed max-w-2xl mx-auto">Your challenge is not to ban `Ctrl+AI`, but to teach students how to use it <span class="text-cyan-400">wisely, ethically, and creatively.</span></p>
+            <p class="mt-8 text-xl text-white">Start a conversation at your school tomorrow.</p>
+        </div>
+
+        <!-- Slide 16: Mahalo -->
+        <div class="slide text-center">
+            <div class="flex items-center justify-center mb-6">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><path d="M17.7 7.7a2.5 2.5 0 1 0 0-5.5 2.5 2.5 0 0 0 0 5.5z"></path><path d="M12 12H2"></path><path d="M15.5 15.5A2.5 2.5 0 1 0 13 13a2.5 2.5 0 0 0 2.5 2.5z"></path><path d="M22 22H2"></path><path d="M7 7H2"></path></svg>
+            </div>
+            <h1 class="text-6xl font-bold text-white">Mahalo!</h1>
+            <p class="mt-8 text-lg text-gray-400">Michael Fricano II | K-6 Design and Technology Teacher & EdTech Enthusiast</p>
+            <div class="mt-8 bg-white p-4 rounded-lg">
+                <img src="https://placehold.co/200x200/ffffff/000000?text=Resources+QR" alt="QR Code for Resources" />
+            </div>
+            <p class="mt-4 text-gray-400">Slides, Tool Links, & Sample Policies</p>
+        </div>
+
+    </div>
+
+    <!-- Navigation controls -->
+    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center space-x-4 z-20">
+        <button id="prev-btn" class="p-2 bg-gray-700/50 backdrop-blur-sm rounded-full hover:bg-cyan-500/50 transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+        </button>
+        <span id="slide-counter" class="text-gray-400 text-sm">1 / 16</span>
+        <button id="next-btn" class="p-2 bg-gray-700/50 backdrop-blur-sm rounded-full hover:bg-cyan-500/50 transition-colors duration-300">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
+        </button>
+    </div>
+    <div class="absolute top-4 right-4 text-xs text-gray-500 z-20">AI in Education Summit - Hawaii</div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- State Management ---
+            const slides = document.querySelectorAll('.slide');
+            const slideCounter = document.getElementById('slide-counter');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            // --- Navigation Functions ---
+            const showSlide = (index) => {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                    if (i === index) {
+                        slide.classList.add('animate-fade-in');
+                    }
+                });
+                slideCounter.textContent = `${index + 1} / ${totalSlides}`;
+            };
+
+            const nextSlide = () => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                showSlide(currentSlide);
+            };
+
+            const prevSlide = () => {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                showSlide(currentSlide);
+            };
+
+            // --- Event Listeners ---
+            document.getElementById('next-btn').addEventListener('click', nextSlide);
+            document.getElementById('prev-btn').addEventListener('click', prevSlide);
+            
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowRight') nextSlide();
+                if (event.key === 'ArrowLeft') prevSlide();
+            });
+
+            // --- Gemini API Call Helper ---
+            async function callGemini(prompt) {
+                const apiKey = ""; // API key is handled by the environment
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+                const payload = {
+                    contents: [{ role: "user", parts: [{ text: prompt }] }],
+                    generationConfig: { temperature: 0.3, topP: 0.9, topK: 40 }
+                };
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        const errorBody = await response.text();
+                        console.error("API Error Response:", errorBody);
+                        return `Error: ${response.status} ${response.statusText}. Check console for details.`;
+                    }
+
+                    const result = await response.json();
+                    if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
+                        return result.candidates[0].content.parts[0].text;
+                    } else {
+                        console.error("Unexpected API response structure:", result);
+                        return "Error: Received an unexpected response from the API.";
+                    }
+                } catch (error) {
+                    console.error("Fetch Error:", error);
+                    return "Error: Could not connect to the API.";
+                }
+            }
+            
+            // --- Demo 1: Vibe Coding Logic ---
+            const demo1Button = document.getElementById('demo1-button');
+            const demo1Prompt = document.getElementById('demo1-prompt');
+            const demo1Output = document.getElementById('demo1-output');
+
+            demo1Button.addEventListener('click', async () => {
+                const promptText = demo1Prompt.value;
+                if (!promptText) return;
+
+                // Set loading state
+                demo1Button.disabled = true;
+                demo1Button.querySelector('.button-text').textContent = 'Generating...';
+                demo1Output.innerHTML = '<span class="text-gray-500">Generating code...</span>';
+
+                const fullPrompt = `You are an expert in writing simple, educational code for K-12 students. Based on the following prompt, generate a single, complete code block in Python. The code should be easy to understand and well-commented. Do not include any explanatory text or markdown formatting like \`\`\`python before or after the code block. Just provide the raw code. Prompt: "${promptText}"`;
+                
+                const result = await callGemini(fullPrompt);
+                
+                // Reset loading state and show result
+                demo1Output.textContent = result;
+                demo1Button.disabled = false;
+                demo1Button.querySelector('.button-text').textContent = 'Generate Code with Gemini';
+            });
+
+            // --- Demo 2: Policy Synthesis Logic ---
+            const demo2Button = document.getElementById('demo2-button');
+            const demo2Ideas = document.getElementById('demo2-ideas');
+            const demo2Output = document.getElementById('demo2-output');
+
+            demo2Button.addEventListener('click', async () => {
+                const ideasText = demo2Ideas.value;
+                if (!ideasText) return;
+
+                // Set loading state
+                demo2Button.disabled = true;
+                demo2Button.querySelector('.button-text').textContent = 'Synthesizing...';
+                demo2Output.innerHTML = '<span class="text-gray-500">Synthesizing ideas...</span>';
+
+                const fullPrompt = `You are an expert in educational policy. Take the following raw ideas from a teacher brainstorming session and synthesize them into a single, clear, and concise classroom AI usage policy rule. The rule should be positive and student-focused. Do not add any introductory or concluding text. Just provide the final rule. Raw ideas: "${ideasText}"`;
+
+                const result = await callGemini(fullPrompt);
+                
+                // Reset loading state and show result
+                demo2Output.textContent = result;
+                demo2Button.disabled = false;
+                demo2Button.querySelector('.button-text').textContent = 'Synthesize with Gemini';
+            });
+
+            // --- Initial Setup ---
+            showSlide(currentSlide);
+        });
+    </script>
+</body>
+</html>
