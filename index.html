@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ctrl+AI: Vibe Coding & the Future of K-12 CS</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React Libraries -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <style>
         /* Custom font and base styles */
         body {
@@ -160,13 +164,13 @@
         <!-- Slide 8: Gemini Demo 1 -->
         <div class="slide text-left">
             <div class="w-full h-full flex flex-col">
-                <h1 class="text-4xl font-bold text-cyan-400 mb-2">Demo 1: ✨ Live Vibe Coding</h1>
-                <p class="text-lg text-gray-400 mb-4">Let's generate a simple guessing game with Gemini.</p>
+                <h1 class="text-4xl font-bold text-cyan-400 mb-2">Demo 1: ✨ Vibe Coding Demo</h1>
+                <p class="text-lg text-gray-400 mb-4">Let's generate a simple guessing game.</p>
                 <div class="flex-grow flex flex-col gap-4 min-h-0">
                     <textarea id="demo1-prompt" class="w-full p-2 bg-gray-900 rounded-lg font-mono text-sm text-gray-300 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none" rows="3" placeholder="Enter your 'vibe' prompt here...">The computer thinks of a number from 1-20. It asks for a guess and tells me if I'm too high, too low, or correct.</textarea>
                     <button id="demo1-button" class="w-full flex justify-center items-center gap-2 px-4 py-2 bg-cyan-600 text-white font-bold rounded-lg hover:bg-cyan-500 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 3 7 5.5L19 3"/><path d="m5 21 7-5.5L19 21"/><path d="M12 22V8"/></svg>
-                        <span class="button-text">Generate Code with Gemini</span>
+                        <span class="button-text">Generate Code</span>
                     </button>
                     <div class="flex-grow w-full bg-gray-900/80 rounded-lg border border-gray-700 p-4 overflow-auto min-h-0">
                         <pre class="whitespace-pre-wrap text-sm"><code id="demo1-output" class="language-python"><span class="text-gray-500">Generated code will appear here.</span></code></pre>
@@ -175,7 +179,7 @@
             </div>
         </div>
 
-        <!-- NEW Slide 9: Interactive Game -->
+        <!-- Slide 9: Interactive Game -->
         <div class="slide text-center">
              <div class="w-full h-full flex flex-col items-center justify-center">
                 <h1 class="text-4xl font-bold text-cyan-400 mb-4">Try It Out: Guess the Number!</h1>
@@ -258,23 +262,26 @@ const App = () => {
             let frameScore = 0;
             if (i < 9) { // Frames 1-9
                 if (isStrike(frame)) {
-                    const nextRoll = currentFrames[i + 1]?.rolls[0];
-                    let nextNextRoll;
-                    if (isStrike(currentFrames[i + 1])) {
-                        nextNextRoll = currentFrames[i + 2]?.rolls[0];
-                    } else {
-                        nextNextRoll = currentFrames[i + 1]?.rolls[1];
-                    }
-                    if (nextRoll !== undefined && nextNextRoll !== undefined) {
-                        frameScore = 10 + nextRoll + nextNextRoll;
+                    const nextFrame = currentFrames[i + 1];
+                    const nextNextFrame = currentFrames[i + 2];
+                    if (nextFrame && nextFrame.rolls.length > 0) {
+                        if (isStrike(nextFrame)) {
+                            if (nextNextFrame && nextNextFrame.rolls.length > 0) {
+                                frameScore = 10 + 10 + nextNextFrame.rolls[0];
+                            } else { break; }
+                        } else if (nextFrame.rolls.length === 2) {
+                            frameScore = 10 + nextFrame.rolls[0] + nextFrame.rolls[1];
+                        } else { break; }
                     } else { break; }
                 } else if (isSpare(frame)) {
-                    const nextRoll = currentFrames[i + 1]?.rolls[0];
-                    if (nextRoll !== undefined) {
-                        frameScore = 10 + nextRoll;
+                    const nextFrame = currentFrames[i + 1];
+                    if (nextFrame && nextFrame.rolls.length > 0) {
+                        frameScore = 10 + nextFrame.rolls[0];
                     } else { break; }
                 } else {
-                    frameScore = frame.rolls[0] + (frame.rolls[1] || 0);
+                    if (frame.rolls.length === 2) {
+                        frameScore = frame.rolls[0] + frame.rolls[1];
+                    } else { break; }
                 }
             } else { // 10th Frame
                 frameScore = frame.rolls.reduce((sum, roll) => sum + roll, 0);
@@ -365,14 +372,19 @@ const App = () => {
             </div>
         </div>
 
-        <!-- Slide 12: Integrity Checkpoint -->
+        <!-- NEW Slide 12: Interactive Bowling App -->
+        <div class="slide text-center">
+            <div id="bowling-app-root" class="w-full h-full bg-gray-900 text-white flex flex-col items-center justify-center p-4 font-sans scale-90"></div>
+        </div>
+
+        <!-- Slide 13: Integrity Checkpoint -->
         <div class="slide text-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-6"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M12 22V6"/><path d="M6 6h12"/><path d="M12 6V2"/></svg>
             <h1 class="text-4xl font-bold text-white mb-4">How do we assess learning?</h1>
             <p class="text-2xl text-gray-300">How can we maintain academic integrity when the code isn't 100% student-written?</p>
         </div>
 
-        <!-- Slide 13: Augmenting Not Replacing -->
+        <!-- Slide 14: Augmenting Not Replacing -->
         <div class="slide text-center">
             <h1 class="text-4xl font-bold text-cyan-400 mb-6">The Teacher's Evolving Role</h1>
             <p class="text-xl text-gray-300 mb-8">The teacher becomes a...</p>
@@ -393,7 +405,7 @@ const App = () => {
             <p class="mt-8 text-xl text-gray-300">Focus assessment on the <span class="text-cyan-400 font-bold">process</span>, not just the final product.</p>
         </div>
 
-        <!-- Slide 14: Academic Integrity Strategies -->
+        <!-- Slide 15: Academic Integrity Strategies -->
         <div class="slide text-left">
             <h1 class="text-4xl font-bold text-cyan-400 mb-8 text-center">Strategies for Academic Integrity</h1>
             <ul class="space-y-4 text-xl text-gray-300">
@@ -404,7 +416,7 @@ const App = () => {
             </ul>
         </div>
 
-        <!-- NEW Slide 15: Interactive Poll for Policy -->
+        <!-- NEW Slide 16: Interactive Poll for Policy -->
         <div class="slide text-center">
             <h1 class="text-4xl font-bold text-cyan-400 mb-4">Let's Brainstorm Together</h1>
             <p class="text-xl text-gray-300 mb-8">What is one rule you would put in your classroom's AI usage policy?</p>
@@ -416,7 +428,7 @@ const App = () => {
             </div>
         </div>
 
-        <!-- Slide 16: Gemini Group Discussion -->
+        <!-- Slide 17: Gemini Group Discussion -->
         <div class="slide text-center">
              <div class="w-full h-full flex flex-col text-center">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
@@ -426,7 +438,7 @@ const App = () => {
                     <textarea id="demo2-ideas" class="w-full flex-grow p-3 bg-gray-900 rounded-lg text-base text-gray-300 border border-gray-700 focus:ring-2 focus:ring-cyan-500 focus:outline-none" placeholder="e.g., 'Cite the AI', 'Don't copy paste', 'Use it for ideas not answers'..."></textarea>
                     <button id="demo2-button" class="w-full flex justify-center items-center gap-2 px-4 py-2 bg-cyan-600 text-white font-bold rounded-lg hover:bg-cyan-500 transition-colors disabled:bg-gray-600 disabled:cursor-not-allowed">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 3 7 5.5L19 3"/><path d="m5 21 7-5.5L19 21"/><path d="M12 22V8"/></svg>
-                        <span class="button-text">Synthesize with Gemini</span>
+                        <span class="button-text">Synthesize</span>
                     </button>
                     <div class="w-full bg-cyan-900/30 rounded-lg border border-cyan-500/30 p-4 text-left max-h-32 overflow-y-auto">
                         <h3 class="font-bold text-cyan-400 mb-2">Synthesized Policy Rule:</h3>
@@ -436,7 +448,7 @@ const App = () => {
             </div>
         </div>
 
-        <!-- Slide 17: Key Takeaways -->
+        <!-- Slide 18: Key Takeaways -->
         <div class="slide text-left">
             <h1 class="text-4xl font-bold text-cyan-400 mb-8 text-center">Key Takeaways</h1>
             <ul class="space-y-4 text-xl text-gray-300">
@@ -447,7 +459,7 @@ const App = () => {
             </ul>
         </div>
 
-        <!-- Slide 18: Call To Action -->
+        <!-- Slide 19: Call To Action -->
         <div class="slide text-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400 mx-auto mb-6"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
             <h1 class="text-4xl font-bold text-white mb-4">Your Call to <span class="bg-clip-text text-transparent bg-gradient-to-br from-white to-gray-400">Ctrl+AI</span></h1>
@@ -455,7 +467,7 @@ const App = () => {
             <p class="mt-8 text-xl text-white">Start a conversation at your school tomorrow.</p>
         </div>
 
-        <!-- Slide 19: Mahalo -->
+        <!-- Slide 20: Mahalo -->
         <div class="slide text-center">
             <div class="flex items-center justify-center mb-6">
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-cyan-400"><path d="M17.7 7.7a2.5 2.5 0 1 0 0-5.5 2.5 2.5 0 0 0 0 5.5z"/><path d="M4 5h16"/><path d="M2 12h10"/><path d="M12 12h10"/><path d="M15.5 15.5A2.5 2.5 0 1 0 13 13a2.5 2.5 0 0 0 2.5 2.5z"/><path d="M22 22H2"/><path d="M7 7H2"/></svg>
@@ -475,7 +487,7 @@ const App = () => {
         <button id="prev-btn" class="p-2 bg-gray-700/50 backdrop-blur-sm rounded-full hover:bg-cyan-500/50 transition-colors duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
         </button>
-        <span id="slide-counter" class="text-gray-400 text-sm">1 / 19</span>
+        <span id="slide-counter" class="text-gray-400 text-sm">1 / 20</span>
         <button id="next-btn" class="p-2 bg-gray-700/50 backdrop-blur-sm rounded-full hover:bg-cyan-500/50 transition-colors duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg>
         </button>
@@ -522,63 +534,51 @@ const App = () => {
                 if (event.key === 'ArrowLeft') prevSlide();
             });
 
-            // --- Gemini API Call Helper ---
-            async function callGemini(prompt) {
-                const apiKey = ""; // API key is handled by the environment
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-                const payload = {
-                    contents: [{ role: "user", parts: [{ text: prompt }] }],
-                    generationConfig: { temperature: 0.3, topP: 0.9, topK: 40 }
-                };
-
-                try {
-                    const response = await fetch(apiUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
-                    });
-
-                    if (!response.ok) {
-                        const errorBody = await response.text();
-                        console.error("API Error Response:", errorBody);
-                        return `Error: ${response.status} ${response.statusText}. Check console for details.`;
-                    }
-
-                    const result = await response.json();
-                    if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
-                        return result.candidates[0].content.parts[0].text;
-                    } else {
-                        console.error("Unexpected API response structure:", result);
-                        return "Error: Received an unexpected response from the API.";
-                    }
-                } catch (error) {
-                    console.error("Fetch Error:", error);
-                    return "Error: Could not connect to the API.";
-                }
-            }
-            
-            // --- Demo 1: Vibe Coding Logic ---
+            // --- Demo 1: Vibe Coding Logic (Pre-written) ---
             const demo1Button = document.getElementById('demo1-button');
-            const demo1Prompt = document.getElementById('demo1-prompt');
             const demo1Output = document.getElementById('demo1-output');
+            const prewrittenCode = `import random
 
-            demo1Button.addEventListener('click', async () => {
-                const promptText = demo1Prompt.value;
-                if (!promptText) return;
+# The computer thinks of a secret number between 1 and 20.
+secret_number = random.randint(1, 20)
 
+# This variable will store the player's guess.
+# We start it at 0 so the game loop can begin.
+guess = 0
+
+# Keep playing the game until the player guesses correctly.
+while guess != secret_number:
+    # Ask the player to guess a number.
+    # We use input() to get text from the player.
+    guess_text = input("Guess a number between 1 and 20: ")
+
+    # We need to turn the text guess into a whole number (integer)
+    # so we can compare it with the secret number.
+    guess = int(guess_text)
+
+    # Check if the guess is too low.
+    if guess < secret_number:
+        print("Your guess is too low. Try again!")
+    # Check if the guess is too high.
+    elif guess > secret_number:
+        print("Your guess is too high. Try again!")
+    # If it's not too low and not too high, it must be correct!
+    else:
+        print("Congratulations! You guessed the secret number!")`;
+
+            demo1Button.addEventListener('click', () => {
                 // Set loading state
                 demo1Button.disabled = true;
                 demo1Button.querySelector('.button-text').textContent = 'Generating...';
                 demo1Output.innerHTML = '<span class="text-gray-500">Generating code...</span>';
 
-                const fullPrompt = `You are an expert in writing simple, educational code for K-12 students. Based on the following prompt, generate a single, complete code block in Python. The code should be easy to understand and well-commented. Do not include any explanatory text or markdown formatting like \`\`\`python before or after the code block. Just provide the raw code. Prompt: "${promptText}"`;
-                
-                const result = await callGemini(fullPrompt);
-                
-                // Reset loading state and show result
-                demo1Output.textContent = result;
-                demo1Button.disabled = false;
-                demo1Button.querySelector('.button-text').textContent = 'Generate Code with Gemini';
+                // Simulate a delay
+                setTimeout(() => {
+                    // Reset loading state and show result
+                    demo1Output.textContent = prewrittenCode;
+                    demo1Button.disabled = false;
+                    demo1Button.querySelector('.button-text').textContent = 'Generate Code';
+                }, 1000); // 1 second delay
             });
 
             // --- Interactive Game Logic ---
@@ -626,34 +626,232 @@ const App = () => {
             });
             gameResetBtn.addEventListener('click', newGame);
             
-            // --- Demo 2: Policy Synthesis Logic ---
+            // --- Demo 2: Policy Synthesis Logic (Pre-written) ---
             const demo2Button = document.getElementById('demo2-button');
-            const demo2Ideas = document.getElementById('demo2-ideas');
             const demo2Output = document.getElementById('demo2-output');
+            const prewrittenPolicy = "Use AI as a creative partner for brainstorming and a helpful assistant for debugging, but always write your final code yourself and be prepared to explain how it works.";
 
-            demo2Button.addEventListener('click', async () => {
-                const ideasText = demo2Ideas.value;
-                if (!ideasText) return;
-
+            demo2Button.addEventListener('click', () => {
                 // Set loading state
                 demo2Button.disabled = true;
                 demo2Button.querySelector('.button-text').textContent = 'Synthesizing...';
                 demo2Output.innerHTML = '<span class="text-gray-500">Synthesizing ideas...</span>';
 
-                const fullPrompt = `You are an expert in educational policy. Take the following raw ideas from a teacher brainstorming session and synthesize them into a single, clear, and concise classroom AI usage policy rule. The rule should be positive and student-focused. Do not add any introductory or concluding text. Just provide the final rule. Raw ideas: "${ideasText}"`;
-
-                const result = await callGemini(fullPrompt);
-                
-                // Reset loading state and show result
-                demo2Output.textContent = result;
-                demo2Button.disabled = false;
-                demo2Button.querySelector('.button-text').textContent = 'Synthesize with Gemini';
+                // Simulate a delay
+                setTimeout(() => {
+                    // Reset loading state and show result
+                    demo2Output.textContent = prewrittenPolicy;
+                    demo2Button.disabled = false;
+                    demo2Button.querySelector('.button-text').textContent = 'Synthesize';
+                }, 1000); // 1 second delay
             });
 
             // --- Initial Setup ---
             newGame(); // Initialize the game on load
             showSlide(currentSlide);
         });
+    </script>
+    
+    <!-- Script for Bowling App -->
+    <script type="text/babel">
+        const BowlingApp = () => {
+            const { useState, useEffect } = React;
+
+            const initialFrames = () => Array(10).fill(null).map(() => ({ rolls: [], display: [] }));
+
+            const isStrike = (frame) => frame && frame.rolls[0] === 10;
+            const isSpare = (frame) => frame && frame.rolls.length === 2 && frame.rolls[0] + frame.rolls[1] === 10;
+
+            const [frames, setFrames] = useState(initialFrames());
+            const [currentFrameIndex, setCurrentFrameIndex] = useState(0);
+            const [pinsRemaining, setPinsRemaining] = useState(10);
+            const [gameOver, setGameOver] = useState(false);
+            const [cumulativeScores, setCumulativeScores] = useState(Array(10).fill(null));
+
+            const calculateScores = (currentFrames) => {
+                let runningTotal = 0;
+                const newCumulativeScores = Array(10).fill(null);
+
+                for (let i = 0; i < 10; i++) {
+                    const frame = currentFrames[i];
+                    if (!frame || frame.rolls.length === 0) break;
+
+                    let frameScore = 0;
+
+                    if (i < 9) {
+                        if (isStrike(frame)) {
+                            const nextFrame = currentFrames[i + 1];
+                            const nextNextFrame = currentFrames[i + 2];
+                            if (nextFrame && nextFrame.rolls.length > 0) {
+                                if (isStrike(nextFrame)) {
+                                    if (nextNextFrame && nextNextFrame.rolls.length > 0) {
+                                        frameScore = 10 + 10 + nextNextFrame.rolls[0];
+                                    } else { break; }
+                                } else if (nextFrame.rolls.length === 2) {
+                                    frameScore = 10 + nextFrame.rolls[0] + nextFrame.rolls[1];
+                                } else { break; }
+                            } else { break; }
+                        } else if (isSpare(frame)) {
+                            const nextFrame = currentFrames[i + 1];
+                            if (nextFrame && nextFrame.rolls.length > 0) {
+                                frameScore = 10 + nextFrame.rolls[0];
+                            } else { break; }
+                        } else {
+                           if (frame.rolls.length === 2) {
+                             frameScore = frame.rolls[0] + frame.rolls[1];
+                           } else { break; }
+                        }
+                    } else {
+                        frameScore = frame.rolls.reduce((sum, roll) => sum + roll, 0);
+                    }
+                    
+                    if(frameScore !== null) {
+                        runningTotal += frameScore;
+                        newCumulativeScores[i] = runningTotal;
+                    }
+                }
+                setCumulativeScores(newCumulativeScores);
+            };
+            
+            useEffect(() => {
+                calculateScores(frames);
+            }, [frames]);
+
+            const handleRoll = (pins) => {
+                if (gameOver) return;
+
+                const newFrames = [...frames];
+                let currentFrame = newFrames[currentFrameIndex];
+                currentFrame.rolls.push(pins);
+                
+                if (currentFrameIndex < 9) {
+                    if (isStrike({ rolls: [pins] })) {
+                        currentFrame.display = ['', 'X'];
+                        setCurrentFrameIndex(currentFrameIndex + 1);
+                        setPinsRemaining(10);
+                    } else if (currentFrame.rolls.length === 1) {
+                        setPinsRemaining(10 - pins);
+                    } else if (isSpare(currentFrame)) {
+                        currentFrame.display = [currentFrame.rolls[0], '/'];
+                        setCurrentFrameIndex(currentFrameIndex + 1);
+                        setPinsRemaining(10);
+                    } else {
+                        currentFrame.display = [...currentFrame.rolls];
+                        setCurrentFrameIndex(currentFrameIndex + 1);
+                        setPinsRemaining(10);
+                    }
+                } else { // 10th Frame
+                    currentFrame.display = currentFrame.rolls.map((roll, idx) => {
+                        if (roll === 10) return 'X';
+                        if (idx === 1 && currentFrame.rolls[0] + roll === 10) return '/';
+                        return roll;
+                    });
+                    
+                    const [r1, r2, r3] = currentFrame.rolls;
+                    const isStrike1 = r1 === 10;
+                    const isSpare1 = r1 + r2 === 10;
+
+                    if (currentFrame.rolls.length === 3 || (currentFrame.rolls.length === 2 && !isStrike1 && !isSpare1)) {
+                        setGameOver(true);
+                    } else {
+                        if (isStrike1 || isSpare1) {
+                            setPinsRemaining(10 - (pins === 10 ? 0 : pins));
+                             if (isStrike1 && r2 !== 10) setPinsRemaining(10 - r2);
+                        } else {
+                            setPinsRemaining(10 - pins);
+                        }
+                    }
+                }
+                setFrames(newFrames);
+            };
+            
+            const newGame = () => {
+                setFrames(initialFrames());
+                setCurrentFrameIndex(0);
+                setPinsRemaining(10);
+                setGameOver(false);
+                setCumulativeScores(Array(10).fill(null));
+            };
+
+            const Scorecard = ({ frames, cumulativeScores }) => (
+                <div className="bg-gray-800 rounded-lg shadow-2xl p-2 md:p-4">
+                    <div className="grid grid-cols-10 gap-1">
+                        {frames.map((frame, index) => (
+                            <Frame key={index} frameIndex={index} frame={frame} cumulativeScore={cumulativeScores[index]} />
+                        ))}
+                    </div>
+                </div>
+            );
+
+            const Frame = ({ frameIndex, frame, cumulativeScore }) => {
+                const isTenth = frameIndex === 9;
+                const display = (frame && frame.display) || [];
+
+                return (
+                    <div className="flex flex-col border border-gray-600 rounded-md text-xs md:text-base">
+                        <div className="text-center bg-gray-700 font-semibold py-1 rounded-t-md">{frameIndex + 1}</div>
+                        <div className="flex-grow flex h-8 md:h-10">
+                            <div className={`w-1/2 border-r ${isTenth ? '' : ''} border-gray-600 flex items-center justify-center`}>
+                                {display[0] !== undefined ? display[0] : ''}
+                            </div>
+                            <div className={`w-1/2 ${isTenth ? 'border-r' : ''} border-gray-600 flex items-center justify-center`}>
+                                {display[1] !== undefined ? display[1] : ''}
+                            </div>
+                            {isTenth && (
+                                <div className="w-1/2 flex items-center justify-center">
+                                    {display[2] !== undefined ? display[2] : ''}
+                                </div>
+                            )}
+                        </div>
+                        <div className="text-center font-bold text-sm md:text-xl py-1 md:py-2 h-8 md:h-10 flex items-center justify-center">
+                            {cumulativeScore}
+                        </div>
+                    </div>
+                );
+            };
+
+            const Controls = ({ onRoll, pinsRemaining, gameOver, onNewGame }) => (
+                <div className="bg-gray-800 rounded-lg shadow-2xl p-2 md:p-4 mt-4">
+                    <div className="grid grid-cols-6 gap-1 md:gap-2 mb-4">
+                        {Array.from({ length: 11 }, (_, i) => i).map(pins => (
+                            <button
+                                key={pins}
+                                onClick={() => onRoll(pins)}
+                                disabled={pins > pinsRemaining || gameOver}
+                                className="bg-cyan-600 text-white font-bold py-2 md:py-3 rounded-lg shadow-md hover:bg-cyan-500 disabled:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+                            >
+                                {pins}
+                            </button>
+                        ))}
+                    </div>
+                    <button
+                        onClick={onNewGame}
+                        className="w-full bg-green-600 text-white font-bold py-2 md:py-3 rounded-lg shadow-md hover:bg-green-500 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-400"
+                    >
+                        New Game
+                    </button>
+                </div>
+            );
+
+            return (
+                <div className="w-full max-w-4xl mx-auto">
+                    <header className="text-center mb-2 md:mb-4">
+                        <h1 className="text-2xl md:text-3xl font-bold text-cyan-400 tracking-wider">Bowling Score Tracker</h1>
+                    </header>
+                    <Scorecard frames={frames} cumulativeScores={cumulativeScores} />
+                    <div className="text-center my-2 md:my-4">
+                        {gameOver ? (
+                            <p className="text-lg md:text-xl font-bold text-green-400 animate-pulse">Game Over! Final Score: {cumulativeScores[9]}</p>
+                        ) : (
+                             <p className="text-base md:text-lg">Frame {currentFrameIndex + 1} - Pins Remaining: <span className="font-bold text-yellow-400">{pinsRemaining}</span></p>
+                        )}
+                    </div>
+                    <Controls onRoll={handleRoll} pinsRemaining={pinsRemaining} gameOver={gameOver} onNewGame={newGame} />
+                </div>
+            );
+        };
+
+        ReactDOM.render(<BowlingApp />, document.getElementById('bowling-app-root'));
     </script>
 </body>
 </html>
